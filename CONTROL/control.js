@@ -20,12 +20,17 @@ export async function productById(productId, res) {
 }
 
 export async function toAddProduct(product, res) {
-    if (product.id && product.title && product.price && product.description && product.category && product.image && product.rating.rate && product.rating.count && product.quantity) {
-        AllProducts.push(product)
-        res.send('The product has been successfully added')
-    } else {
-        console.log('The product has not been added. Please complete the missing details')
+    try {
+        if (product.id && product.title && product.price && product.description && product.category && product.image && product.rating.rate && product.rating.count && product.quantity) {
+            AllProducts.push(product)
+            res.send('The product has been successfully added')
+        } else {
+            throw new error('The product has not been added. Please complete the missing details')
+        }
+    } catch (error) {
+        res.send(error)
     }
+    
 }
 
 export async function toEdit(productId, productDetails, res) {
